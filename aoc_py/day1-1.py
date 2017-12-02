@@ -1,4 +1,4 @@
-with open('input/1.txt') as fp:
+with open('../input/1.txt') as fp:
     data = [int(x) for x in fp.read().strip()]
 
 
