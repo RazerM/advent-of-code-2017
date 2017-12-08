@@ -1,5 +1,5 @@
 with open('../input/5.txt') as fp:
-    instructions = [int(x) for x in fp.readlines()]
+    instructions = [int(x) for x in fp]
 
 
 pos = 0
