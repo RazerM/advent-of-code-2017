@@ -1,2 +1,4 @@
-attrs
-regex
+attrs~=17.3.0
+regex==2017.12.5
+Arpeggio~=1.7
+pytest~=3.3.1
