@@ -1,7 +1,9 @@
 from binascii import hexlify
 from functools import reduce
-from itertools import zip_longest
+from itertools import chain, zip_longest
 from operator import xor
+
+MAGIC = [17, 31, 73, 47, 23]
 
 
 def coalesce(*args):
@@ -49,6 +51,7 @@ def sparse_hash(lengths, rounds=1):
     pos = 0
     skip = 0
     nums = CycleList(range(256))
+    lengths = list(lengths)
 
     for _ in range(rounds):
         for length in lengths:
@@ -71,10 +74,18 @@ def dense_hash(nums):
     return [reduce(xor, c) for c in grouper(nums, 16)]
 
 
+def knot_hash(data):
+    if isinstance(data, str):
+        data = data.encode('utf-8')
+    nums = sparse_hash(chain(data, MAGIC), rounds=64)
+    hash = dense_hash(nums)
+    return hexlify(bytes(hash)).decode('utf-8')
+
+
 with open('../input/10.txt') as fp:
     input = fp.read().strip()
     part1_lengths = [int(x) for x in input.split(',')]
-    part2_lengths = [ord(c) for c in input] + [17, 31, 73, 47, 23]
+    part2_lengths = [ord(c) for c in input]
 
 
 def part1():
@@ -83,10 +94,9 @@ def part1():
 
 
 def part2():
-    nums = sparse_hash(part2_lengths, rounds=64)
-    hash = dense_hash(nums)
-    return hexlify(bytes(hash)).decode('utf-8')
+    return knot_hash(part2_lengths)
 
 
-print('Part 1:', part1())
-print('Part 2:', part2())
+if __name__ == '__main__':
+    print('Part 1:', part1())
+    print('Part 2:', part2())
