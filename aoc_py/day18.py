@@ -87,11 +87,7 @@ def parse_assembly(assembly):
     return visit_parse_tree(parse_tree, AssemblyVisitor())
 
 
-with open('../input/18.txt') as fp:
-    instructions = parse_assembly(fp.read().strip())
-
-
-async def run(registers, q_rcv, q_snd, wait_rcv, wait_snd):
+async def run(instructions, registers, q_rcv, q_snd, wait_rcv, wait_snd):
     i = 0
     num_sent = 0
 
@@ -157,6 +153,9 @@ async def run(registers, q_rcv, q_snd, wait_rcv, wait_snd):
 
 
 async def main():
+    with open('../input/18.txt') as fp:
+        instrs = parse_assembly(fp.read().strip())
+
     pid = iter(count())
     registers0 = defaultdict(int)
     registers1 = defaultdict(int)
@@ -171,9 +170,9 @@ async def main():
     wait1 = asyncio.Event()
 
     task0 = asyncio.ensure_future(
-        run(registers0, q_rcv=q0, q_snd=q1, wait_rcv=wait0, wait_snd=wait1))
+        run(instrs, registers0, q_rcv=q0, q_snd=q1, wait_rcv=wait0, wait_snd=wait1))
     task1 = asyncio.ensure_future(
-        run(registers1, q_rcv=q1, q_snd=q0, wait_rcv=wait1, wait_snd=wait0))
+        run(instrs, registers1, q_rcv=q1, q_snd=q0, wait_rcv=wait1, wait_snd=wait0))
 
     _, sent1 = await asyncio.gather(task0, task1)
 
