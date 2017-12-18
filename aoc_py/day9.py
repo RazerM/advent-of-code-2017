@@ -4,6 +4,7 @@ from arpeggio import PTNodeVisitor, visit_parse_tree
 from arpeggio.cleanpeg import ParserPEG
 
 grammar = '''
+    document = group EOF
     group = "{" (content ("," content)*)? "}"
     content = garbage / group
     garbage = "<" garbage_character* ">"
@@ -50,7 +51,7 @@ class StreamVisitor(PTNodeVisitor):
         return None
 
 
-parser = ParserPEG(grammar, root_rule_name='group', skipws=False)
+parser = ParserPEG(grammar, root_rule_name='document', skipws=False)
 
 
 def parse_stream(characters):
@@ -94,6 +95,5 @@ if __name__ == '__main__':
         characters = fp.read().strip()
 
     day9 = parse_stream(characters)
-    print(day9)
     print('Score:', day9.calculate_score())
     print('Garbage count:', day9.count_garbage())

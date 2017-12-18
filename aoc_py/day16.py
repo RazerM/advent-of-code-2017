@@ -7,7 +7,7 @@ from arpeggio import PTNodeVisitor, visit_parse_tree
 from arpeggio.cleanpeg import ParserPEG
 
 grammar = '''
-    moves = move ("," move)*
+    moves = move ("," move)* EOF
     move = spin / exchange / partner
     spin = "s" int
     exchange = "x" int sep int
