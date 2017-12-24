@@ -46,5 +46,6 @@ def part2():
             print('Part 2:', delay)
             break
 
+
 part1()
 part2()

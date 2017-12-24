@@ -13,7 +13,7 @@ def spinlock(steps, loops, after):
 
         position += 1
 
-    return buffer[buffer.index(2017) + 1]
+    return buffer[buffer.index(after) + 1]
 
 
 def spinlock_zero(steps, loops):

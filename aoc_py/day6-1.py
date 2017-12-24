@@ -21,6 +21,7 @@ while True:
     frozen = tuple(banks)
     if frozen in seen:
         break
+
     seen.add(frozen)
 
 print(cycles)

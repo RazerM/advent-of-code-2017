@@ -142,5 +142,6 @@ def main():
     print('Part 1:', mul_invoked)
     print('Part 2:', part2())
 
+
 if __name__ == '__main__':
     main()

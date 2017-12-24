@@ -2,6 +2,7 @@ from collections import defaultdict
 
 import attr
 
+
 @attr.s(cmp=True, frozen=True)
 class Vector:
     x = attr.ib()
@@ -10,7 +11,6 @@ class Vector:
     def go(self, direction):
         return Vector(self.x + direction.x, self.y + direction.y)
 
-assert hash(Vector(1, 3)) == hash((1, 3))
 
 target = 325489
 

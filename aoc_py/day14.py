@@ -1,5 +1,5 @@
 from itertools import chain, product
-from queue import Empty, Queue
+from queue import Queue
 
 import numpy as np
 
