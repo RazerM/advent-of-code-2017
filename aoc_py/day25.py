@@ -18,6 +18,7 @@ class Continue:
     state = attr.ib()
 
 
+# Didn't write a parser for the input file
 states = {
     'A': [
         [
