@@ -53,13 +53,16 @@ def permutations(components, matching):
 def main():
     components = load_components()
     all_bridges = permutations(components, matching=0)
-    # get (strength, len) tuple for each bridge
-    strengths = [(sum(x.a + x.b for x in b), len(b)) for b in all_bridges]
-    strongest = max(x[0] for x in strengths)
-    longest = max(x[1] for x in strengths)
+
+    def longest_strongest(b):
+        return len(b), sum(b)
+
+    strengths = [[x.a + x.b for x in b] for b in all_bridges]
+    strongest = sum(max(strengths, key=sum))
+    longest = sum(max(strengths, key=longest_strongest))
 
     print('Part 1:', strongest)
-    print('Part 2:', max(x[0] for x in strengths if x[1] == longest))
+    print('Part 2:', longest)
 
 
 if __name__ == '__main__':
